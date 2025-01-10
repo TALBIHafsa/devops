@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-//controllers
 let {
   pingPong,
   allVehicles,
@@ -10,19 +9,17 @@ let {
   allCustomers
 } = require("../controllers/vehiclesController");
 
-/* GET ping (testing ). */
-router.get('/ping', pingPong);
+// Add error handling to routes
+const asyncHandler = fn => (req, res, next) =>
+  Promise.resolve(fn(req, res, next)).catch(next);
 
-/* GET customers (get customers list ). */
-router.get('/customers/all', allCustomers);
+router.get('/ping', asyncHandler(pingPong));
 
-/* GET /api/vehicles/all (list all registered vehicles) */
-router.get("/all", allVehicles);
+// Move customer routes to customer service
+// router.get('/customers/all', allCustomers);  // Remove this
 
-/* POST /api/vehicles/add (register a vehicle) */
-router.post("/add", registerVehicle);
-
-/* DELETE /api/vehicles/:license (delete a vehicle) */
-router.delete("/:license", deleteVehicle);
+router.get("/all", asyncHandler(allVehicles));
+router.post("/add", asyncHandler(registerVehicle));
+router.delete("/:license", asyncHandler(deleteVehicle));
 
 module.exports = router;

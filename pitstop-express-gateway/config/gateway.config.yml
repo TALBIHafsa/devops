@@ -1,27 +1,28 @@
 http:
-  port: ${PORT:-8080}
+  port: 3000
 admin:
   port: 9876
   host: localhost
+
 apiEndpoints:
   pitstop-customer:
-    host: localhost
-    paths: '/api/customers/*'
+    host: "*"
+    paths: "/api/customers/*"
   pitstop-vehicle:
-    host: localhost
-    paths: '/api/vehicles/*'
+    host: "*"
+    paths: ["/api/vehicles", "/api/vehicles/*"]
   pitstop-workshop:
-    host: localhost
-    paths: '/api/workshop/*'
+    host: "*"
+    paths: "/api/workshop/*"
+
 serviceEndpoints:
   pitstop-customer-service:
-    url: ${CUSTOMER_URL:-'http://pitstop-customer-service:3001'}
+    url: "http://pitstop-customer:3001"
   pitstop-vehicle-service:
-    url: ${VEHICLE_URL:-'http://pitstop-vehicle-service:3002'}
+    url: "http://pitstop-vehicle:3002"
   pitstop-workshop-service:
-    url: ${WORKSHOP_URL:-'http://pitstop-workshop-service:3003'}
-    
- 
+    url: "http://pitstop-workshop-planning:3003"
+
 policies:
   - basic-auth
   - cors
@@ -31,6 +32,7 @@ policies:
   - oauth2
   - proxy
   - rate-limit
+
 pipelines:
   customers-pipelines:
     apiEndpoints:

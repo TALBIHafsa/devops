@@ -22,7 +22,7 @@ services:
     volumes:
       - ./pitstop-express-gateway:/app/gateway
     ports:
-      - $GATEWAYAPI_PORT:$GATEWAYAPI_PORT
+      - "3000:3000" 
     restart: unless-stopped
 
   pitstop-customer-database:
