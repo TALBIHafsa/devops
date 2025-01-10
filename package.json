@@ -8,5 +8,8 @@
   },
   "author": "MSALEK Mouad",
   "license": "ISC",
-  "keywords": []
+  "keywords": [],
+  "devDependencies": {
+    "vue-template-es2015-compiler": "^1.9.1"
+  }
 }
